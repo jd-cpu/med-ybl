@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Med Quiz App</title>
+    <style>
+        /* 간단한 스타일 - 나중에 style.css로 뺄 수 있음 */
+        body { font-family: sans-serif; padding: 20px; text-align: center; }
+        .screen { display: none; } /* 모든 화면을 일단 숨김 */
+        .active { display: block; } /* 활성화된 화면만 보여줌 */
+        .btn { padding: 10px 20px; margin: 5px; cursor: pointer; }
+        .options-container { text-align: left; margin: 20px auto; max-width: 600px; }
+        .option-item { margin: 10px 0; padding: 10px; border: 1px solid #ddd; cursor: pointer; }
+        .option-item:hover { background-color: #f0f0f0; }
+        #explanation-area { display: none; background: #eef; padding: 15px; margin-top: 15px; text-align: left;}
+        img { max-width: 100%; height: auto; }
+    </style>
+</head>
+<body>
+    <div id="subject-screen" style="padding: 20px; text-align: center;">
+        <h1>🩺 YBL</h1>
+        <p>학습할 과목을 선택하세요</p>
+        
+        <div style="display: flex; flex-direction: column; gap: 15px; max-width: 300px; margin: 0 auto;">
+            <button onclick="startSubject('혈액내과')" style="padding: 15px; font-size: 18px;">혈액내과</button>
+            <button onclick="startSubject('심장내과')" style="padding: 15px; font-size: 18px;">심장내과</button>
+            <button onclick="startSubject('류마티스내과')" style="padding: 15px; font-size: 18px;">류마티스내과</button>
+        </div>
+    </div>
+
+    <div id="quiz-screen" style="display: none;">
+        <div style="display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid #ddd; align-items: center; background: #fff;">
+            <div style="display:flex; gap:5px;">
+                <button onclick="goHome()" style="padding: 5px 10px;">🏠</button>
+                <button onclick="resetStudy()" style="padding: 5px 10px;">🔄 새로고침</button>
+            </div>
+            <h3 id="subject-display" style="margin: 0; font-size: 16px;">과목명</h3>
+            <button id="mode-btn" onclick="toggleReviewMode()" style="padding: 5px 10px; font-size: 12px;">⚡ 오답만</button>
+        </div>
+
+        <div style="width: 100%; height: 6px; background-color: #eee;">
+            <div id="progress-bar" style="width: 0%; height: 100%; background-color: #4CAF50; transition: width 0.3s;"></div>
+        </div>
+
+        <div style="text-align: left;">
+    <div id="test-badge" style="display: none; font-size: 13px; color: #555; background-color: #f1f3f5; padding: 4px 8px; border-radius: 4px; margin-bottom: 10px; font-weight: bold; width: fit-content;">
+    </div>
+</div>
+        
+        <div style="padding: 20px;">
+            <div id="question-text" style="font-size: 18px; margin-bottom: 20px; line-height: 1.6;">
+                문제 로딩 중...
+            </div>
+            
+            <div id="options-container" style="display: flex; flex-direction: column; gap: 10px;">
+                </div>
+
+            <div style="margin-top: 20px;">
+                <h4 id="result-msg"></h4>
+                <p id="desc-area" style="background: #f9f9f9; padding: 10px; display: none; white-space: pre-wrap;"></p>
+            </div>
+        </div>
+
+        <div style="padding: 20px; border-top: 1px solid #ddd; display: flex; gap: 10px;">
+    <button id="prev-btn" onclick="prevQuestion()" style="flex: 1; padding: 15px; display: none; background-color: #f0f0f0;">
+        ◀ 이전
+    </button>
+
+    <button id="action-btn" onclick="handleWrongAnswerAction()" style="flex: 1.5; padding: 15px;">
+        ⭐ 오답 추가
+    </button>
+
+    <button id="submit-btn" onclick="submitAnswer()" style="flex: 1.5; padding: 15px; background-color: #4CAF50; color: white; font-weight: bold;">
+        정답 확인
+    </button>
+
+    <button id="next-btn" onclick="nextQuestion()" style="flex: 1.5; padding: 15px; display: none;">
+        다음 ▶
+    </button>
+</div>
+    </div>
+
+    <script type="module" src="app.js"></script>
+
+</body>
+</html>
